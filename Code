@@ -1,0 +1,298 @@
+C++ Code of Contact Manager project for PP CA-3 assignment.
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+class Contact
+{
+    public:
+    Contact(const string& name) : name(name)
+    {
+        
+    }
+    virtual void displayContact() const
+    {
+        cout << "Name: " << name << endl;
+    }
+    string getName() const
+    {
+        return name;
+    }
+    private:
+    string name;
+};
+class PhoneContact : public Contact
+{
+    public:
+    PhoneContact(const string& name, const string& phoneNumber) : Contact(name), phoneNumber(phoneNumber)
+    {
+        
+    }
+    void displayContact() const override
+    {
+        Contact::displayContact();
+        cout << "Phone Number: " << phoneNumber << endl;
+    }
+    private:
+    string phoneNumber;
+};
+class EmailContact : public Contact
+{
+    public:
+    EmailContact(const string& name, const string& email) : Contact(name), email(email)
+    {
+        
+    }
+    void displayContact() const override
+    {
+        Contact::displayContact();
+        cout << "Email: " << email << endl;
+    }
+
+    private:
+    string email;
+};
+class ContactManager
+{
+    public:
+    void addContact(Contact* contact, int i)
+    {
+        if (!contactExists(contact->getName()))
+        {
+            contacts.push_back(contact);
+            if(i==1)
+            {
+                cout << "Contact added successfully.\n";
+            }
+        }
+        else
+        {
+            cout << "Contact with that name already exists.\n";
+        }
+    }
+    void deleteContact(const string& name)
+    {
+        for (auto it = contacts.begin(); it != contacts.end(); ++it)
+        {
+            if ((*it)->getName() == name)
+            {
+                delete *it;
+                contacts.erase(it);
+                cout << "Contact deleted successfully.\n";
+                return;
+            }
+        }
+        cout << "Contact not found.\n";
+    }
+    void searchContact(const string& name)
+    {
+        bool found = false;
+        for (const auto& contact : contacts)
+        {
+            if (contact->getName() == name)
+            {
+                contact->displayContact();
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            cout << "Contact not found.\n";
+        }
+    }
+    void displayContactList()
+    {
+        if (!contacts.empty())
+        {
+            sort(contacts.begin(), contacts.end(), compareContacts);
+            cout << "\t\t\tContact List\n";
+            cout << "Number of Contacts: " << contacts.size() << "\n"<<endl; // Add this line
+            
+            for (const auto& contact : contacts)
+            {
+                contact->displayContact();
+                cout << "\n-----------------\n\n";
+            }
+        }
+        else
+        {
+            cout << "Contact list is empty.\n";
+        }
+    }
+
+private:
+    vector<Contact*> contacts;
+
+    bool contactExists(const string& name)
+    {
+        for (const auto& contact : contacts)
+        {
+            if (contact->getName() == name)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static bool compareContacts(const Contact* a, const Contact* b)
+    {
+        return a->getName() < b->getName();
+    }
+};
+int main()
+{
+    ContactManager contactManager;
+    contactManager.addContact(new PhoneContact("Haruki", "4564345"), 0);
+    contactManager.addContact(new PhoneContact("Yuki", "1234567"), 0);
+    contactManager.addContact(new PhoneContact("Hana", "2345678"), 0);
+    contactManager.addContact(new PhoneContact("Ryota", "3456789"), 0);
+    contactManager.addContact(new PhoneContact("Sakura", "4567890"), 0);
+    contactManager.addContact(new PhoneContact("Ren", "5678901"), 0);
+    contactManager.addContact(new PhoneContact("Emi", "6789012"), 0);
+    contactManager.addContact(new PhoneContact("Kaito", "7890123"), 0);
+    contactManager.addContact(new PhoneContact("Aoi", "8901234"), 0);
+    contactManager.addContact(new PhoneContact("Sora", "9012345"), 0);
+    contactManager.addContact(new PhoneContact("Hinata", "0123456"), 0);
+    contactManager.addContact(new PhoneContact("Mio", "1023456"), 0);
+    contactManager.addContact(new PhoneContact("Takumi", "1123456"), 0);
+    contactManager.addContact(new PhoneContact("Yuuki", "1223456"), 0);
+    contactManager.addContact(new PhoneContact("Rin", "1323456"), 0);
+    contactManager.addContact(new PhoneContact("Souta", "1423456"), 0);
+    contactManager.addContact(new PhoneContact("Yui", "1523456"), 0);
+    contactManager.addContact(new PhoneContact("Yuta", "1623456"), 0);
+    contactManager.addContact(new PhoneContact("Koharu", "1723456"), 0);
+    contactManager.addContact(new PhoneContact("Miku", "1823456"), 0);
+    contactManager.addContact(new PhoneContact("Hiroto", "1923456"), 0);
+    contactManager.addContact(new PhoneContact("Tsubasa", "2023456"), 0);
+    contactManager.addContact(new PhoneContact("Rika", "2123456"), 0);
+    contactManager.addContact(new PhoneContact("Haruto", "2323456"), 0);
+    contactManager.addContact(new PhoneContact("Nanami", "2423456"), 0);
+    contactManager.addContact(new PhoneContact("Sosuke", "2523456"), 0);
+    contactManager.addContact(new PhoneContact("Kazuki", "2723456"), 0);
+    contactManager.addContact(new PhoneContact("Mizuki", "2823456"), 0);
+    contactManager.addContact(new EmailContact("Rahul", "rahul@gmail.com"), 0);
+    contactManager.addContact(new EmailContact("Amit", "amit@example.com"), 0);
+    contactManager.addContact(new EmailContact("Priya", "priya@example.com"), 0);
+    contactManager.addContact(new EmailContact("Rajesh", "rajesh@example.com"), 0);
+    contactManager.addContact(new EmailContact("Meera", "meera@example.com"), 0);
+    contactManager.addContact(new EmailContact("Divya", "divya@example.com"), 0);
+    contactManager.addContact(new EmailContact("Arun", "arun@example.com"), 0);
+    contactManager.addContact(new EmailContact("Ananya", "ananya@example.com"), 0);
+    contactManager.addContact(new EmailContact("Vijay", "vijay@example.com"), 0);
+    contactManager.addContact(new EmailContact("Neha", "neha@example.com"), 0);
+    contactManager.addContact(new EmailContact("Aishwarya", "aishwarya@example.com"), 0);
+    contactManager.addContact(new EmailContact("Sandeep", "sandeep@example.com"), 0);
+    contactManager.addContact(new EmailContact("Sanjana", "sanjana@example.com"), 0);
+    contactManager.addContact(new EmailContact("Ravi", "ravi@example.com"), 0);
+    contactManager.addContact(new EmailContact("Vikram", "vikram@example.com"), 0);
+    contactManager.addContact(new EmailContact("Preeti", "preeti@example.com"), 0);
+    contactManager.addContact(new EmailContact("Nikhil", "nikhil@example.com"), 0);
+    contactManager.addContact(new EmailContact("Kiran", "kiran@example.com"), 0);
+    contactManager.addContact(new EmailContact("Anjali", "anjali@example.com"), 0);
+    contactManager.addContact(new EmailContact("Akhil", "akhil@example.com"), 0);
+    contactManager.addContact(new EmailContact("Rahu", "rahul@example.com"), 0);
+    contactManager.addContact(new EmailContact("Sneha", "sneha@example.com"), 0);
+    contactManager.addContact(new EmailContact("Prakash", "prakash@example.com"), 0);
+    contactManager.addContact(new EmailContact("Vidya", "vidya@example.com"), 0);
+    contactManager.addContact(new EmailContact("Rani", "rani@example.com"), 0);
+    contactManager.addContact(new EmailContact("Sachin", "sachin@example.com"), 0);
+    contactManager.addContact(new EmailContact("Priyanka", "priyanka@example.com"), 0);
+    contactManager.addContact(new EmailContact("Vivek", "vivek@example.com"), 0);
+    contactManager.addContact(new EmailContact("Naveen", "naveen@example.com"), 0);
+    contactManager.addContact(new EmailContact("Kavita", "kavita@example.com"), 0);
+    contactManager.addContact(new EmailContact("Sarika", "sarika@example.com"), 0);
+    contactManager.addContact(new EmailContact("Raghu", "rahul@example.com"), 0);
+    contactManager.addContact(new EmailContact("Anita", "anita@example.com"), 0);
+    contactManager.addContact(new EmailContact("Karthik", "karthik@example.com"), 0);
+    contactManager.addContact(new EmailContact("Vijaya", "vijaya@example.com"), 0);
+    contactManager.addContact(new EmailContact("Pramod", "pramod@example.com"), 0);
+    contactManager.addContact(new EmailContact("Geeta", "geeta@example.com"), 0);
+    contactManager.addContact(new EmailContact("Rohit", "rohit@example.com"), 0);
+    contactManager.addContact(new EmailContact("Vishal", "vishal@example.com"), 0);
+    contactManager.addContact(new EmailContact("Asha", "asha@example.com"), 0);
+    contactManager.addContact(new EmailContact("Neeraj", "neeraj@example.com"), 0);
+    contactManager.addContact(new EmailContact("Amita", "amita@example.com"), 0);
+    contactManager.addContact(new EmailContact("Rakesh", "rakesh@example.com"), 0);
+    contactManager.addContact(new EmailContact("Sunita", "sunita@example.com"), 0);
+    contactManager.addContact(new EmailContact("Rajat", "rajat@example.com"), 0);
+    while (true)
+    {
+        cout << "\nContact Management System\n\n";
+        cout << "1. Add Contact\n";
+        cout << "2. Delete Contact\n";
+        cout << "3. Search Contact\n";
+        cout << "4. View Contact List\n";
+        cout << "5. Exit\n";
+        cout << "Enter your choice: ";
+        int choice;
+        cin >> choice;
+        cout<<"\n";
+        switch (choice)
+        {
+            case 1:
+            {
+                cout << "\nEnter the name: ";
+                string name;
+                cin >> name;
+                cout << "1. Add Phone Contact\n";
+                cout << "2. Add Email Contact\n";
+                cout << "Enter contact type: ";
+                int contactType;
+                cin >> contactType;
+                if (contactType == 1)
+                {
+                    cout << "\nEnter phone number: ";
+                    string phoneNumber;
+                    cin >> phoneNumber;
+                    PhoneContact* newContact = new PhoneContact(name, phoneNumber);
+                    contactManager.addContact(newContact, 1);
+                }
+                else if (contactType == 2)
+                {
+                    cout << "\nEnter email address: ";
+                    string email;
+                    cin >> email;
+                    EmailContact* newContact = new EmailContact(name, email);
+                    contactManager.addContact(newContact, 1);
+                }
+                break;
+            }   
+            case 2:
+            {
+                cout << "Enter the name to delete: ";
+                string name;
+                cin >> name;
+                contactManager.deleteContact(name);
+                break;
+            }
+            case 3:
+            {
+                cout << "Enter the name to search: ";
+                string name;
+                cin >> name;
+                contactManager.searchContact(name);
+                break;
+            }
+            case 4:
+            {
+                contactManager.displayContactList();
+                break;
+            }
+            case 5:
+            {
+                cout<<"\nThankyou for using Contact Manager.\n";
+                return 0;
+            }
+            default:
+            {
+                cout << "Invalid choice. Please try again.\n";
+                break;
+            }
+        }
+    }
+    return 0;
+}
