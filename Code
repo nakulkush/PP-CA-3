@@ -1,4 +1,4 @@
-C++ Code of Contact Manager project for PP CA-3 assignment.
+C++ Code for Contact Manager project, PP CA-3 assignment.
 
 #include <iostream>
 #include <vector>
